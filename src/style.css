@@ -4,3 +4,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.body {
+    @apply font-body bg-gray-900;
+}
+
+.avatar {
+    @apply border-white w-40 h-40 md:w-56 md:h-56 rounded-full border-4 overflow-hidden relative bg-center mx-auto ;
+}
+
+.avatar > .img {
+    @apply w-40 h-40 md:w-56 md:h-56 rounded-full object-cover transform hover:scale-125 transition ease-out duration-300 cursor-pointer;
+}
+
+.center-screen {
+    @apply flex flex-col justify-center items-center  h-screen w-full;
+}
