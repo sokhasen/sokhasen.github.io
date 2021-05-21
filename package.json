@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "live-server public",
-    "build-css": "tailwindcss build src/style.css -o public/style.css"
+    "serve": "live-server .",
+    "build-css": "tailwindcss build src/style.css -o assets/style.css"
   },
   "repository": {
     "type": "git",
