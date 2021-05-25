@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Nunito"]
+        body: ["Nunito"],
+        body2: ['IBM Plex Sans', ' sans-serif']
       }
     },
   },

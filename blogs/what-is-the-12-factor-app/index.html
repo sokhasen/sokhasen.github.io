@@ -9,19 +9,19 @@
     <style>
         p {
             margin-bottom: 1.5rem;
+            text-indent: 2.5rem;
         }
 
         h2 {
             font-size: 24px;
             font-weight: bold;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             margin-top: 2rem;
             margin-bottom: 2rem;
         }
     </style>
 </head>
 
-<body class="font-body text-gray-700">
+<body class="font-body2 text-gray-700">
     <div class="bg-white p-4 text-center border-b border-gray-100">
         <a href="/" class="font-semibold">HOME</a>
         <a href="/blogs" class="font-semibold  ml-4">BLOG</a>
@@ -50,142 +50,480 @@
 
             <article class="mt-10 md:mt-20">
                 <div class="my-10">
-                    <h2>What is The 12 Factor App?</h2>
+                    <h2>12 Factor App Example In Spring Boot</h2>
                 </div>
                 <p class="mb-6">
-                    The twelve-factor app is a methodology used to build software-as-a-service apps. It serves as a best
-                    practice guide to create apps with low time and cost for new developers joining a project and to
-                    make
-                    them scale up without significant changes to tooling or architecture.
+                    Building web applications deploy on a modern cloud environment and delivered as a service called
+                    software-as-a-service. It is important to find methodology to architect web apps that fit on cloud
+                    computing and deliver software on time. In 2011, <a class="text-blue-500"
+                        href="https://github.com/adamwiggins" target="_blank"> Adam
+                        Wiggins</a>, developer at heroku, drafted the
+                    twelve-factor app methodology. He defined and separated 12 factors helping maximum portability,
+                    clean contract, scale up, continuous deployment.
                 </p>
-
-                <p class="mb-6">
-                    The twelve-factor methodology can be applied to apps written in any programming language. These are
-                    the
-                    12 factors to consider:
-                </p>
-                <ol type="1" class="text-base">
-                    <li>1. Codebase</li>
-                    <li>2. Dependencies</li>
-                    <li>3. Configurations</li>
-                    <li>4. Backing services</li>
-                    <li>5. Build, release and run</li>
-                    <li>6. Processes</li>
-                    <li>7. Port binding</li>
-                    <li>8. Concurrency</li>
-                    <li>9. Disposability</li>
-                    <li>10. Dev/Prod parity</li>
-                    <li>11. Logs</li>
-                    <li>12. Admin Processes</li>
-                </ol>
 
                 <!-- content -->
                 <h2>1 - Codebase</h2>
-                <p>The codebase terms refer to the version control system used to keep track of any changes to the
-                    application. Git or Subversion are common version control tools. In 12-factor apps, there should be
-                    a one to one correlation between the codebase and the app.<br><br>If there are multiple codebases,
-                    then there is not a single application but a distributed system. In that scenario, each codebase is
-                    treated as an independent component and they should comply with 12-factor app.<br><br>It is
-                    considered a violation for multiple applications to share a single codebase. To avoid that, we can
-                    externalise shared code into dependency libraries.<br><br>The deployment of an application is going
-                    target its particular codebase.</p>
-                <h2>2 - Dependencies</h2>
-                <p>Software dependencies are pieces of code that can be reused on multiple apps by publishing them as
-                    packages or libraries. In 12-Factor apps, all dependencies must be declared into a manifest and
-                    installed using a package manager.<br><br>An application must not rely on implicit existence of
-                    system packages but, instead, use the package manager to reference them. That prevents cross device
-                    issues, 'It works on my machine' error, and also ensures the app has all dependencies it needs to
-                    run on every type of system.<br><br>In addition to that, 12-Factor apps also use a dependency
-                    isolation tool during execution to ensure that no implicit dependencies 'leak in' from the
-                    surrounding system. For front-end web applications that can be achieved using a Docker container.
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">One codebase tracked in revision control, many
+                            deploys</span>
+                    </p>
+                </blockquote>
+                <p>
+                    12 factor app methodology strongly defines that <b>an application on many different deploy
+                        environments must have only a single codebase</b>, tracked in a version control system such as
+                    git,
+                    or subvision. Codebase is a set of instructions of your application on any single repository.
                 </p>
-                <h2>3 - Configurations</h2>
-                <p>The app configs are values that are susceptible to change between environment and stages. We must
-                    separate those values from the code logic as the codebase does not change between
-                    deployments.<br><br>A config file is intended to store values such as: Connection strings to
-                    databases, credentials for external services like third party APIs or environment related settings
-                    such as the hostname of the application.<br><br>An application must never store those types of
-                    values in their code and worst add them to its version control. That is a violation of the 12-Factor
-                    app methodology. All apps following 12-factor should store the config values on environment
-                    variables and be language-agnostic.<br><br>The group of configs is also important. It is not
-                    recommended to group config variables as environment names <code>dev</code>, <code>test</code>,
-                    <code>staging</code> and <code>prod</code> as this approach does not escalate smoothly. In a
-                    twelve-factor apps, config are like granular controls been fully orthogonal to other
-                    <code>env</code> vars. The grouping should represent their independent use.</p>
+
+                <p>
+                    In order to comply with this principle, we keep our one codebase per app in the git version
+                    control system and share many deploys of the app. If we have multiple codebases, it is called a
+                    distributed system. 12 Factor App recommended us to apply a single codebase per component. If we
+                    have a multi app that has shared the same codebase, we must wrap it into libraries which are
+                    included through the dependency manager.
+                </p>
+
+                <p>
+                    In the real example practice with our spring boot application, we keep our source code in the
+                    git repository and share them to our collaborations. This code will be compiled and packaged
+                    then deployed to one or many environments. For specific running applications in different
+                    environments like development, production, it depends on configuration. We store those
+                    configurations using spring profiles and environment specific properties rather than duplicate
+                    our code base into different repositories. Test, staging, prod must have one source code base in
+                    one repository.
+                </p>
+
+                <h2>2 - Dependencies</h2>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Explicitly declare and isolate dependencies.
+                        </span>
+                    </p>
+                </blockquote>
+                <p>
+                    Many programming languages offer a packaging system installer for using and sharing the code across
+                    the application. Eg, node ecosystems offer NPM or Yarn, Ruby offers RubyGem, Java offers Maven or
+                    Grandle, Python offers pip etc.
+                </p>
+
+                <p>Dependencies of an application are open source libraries built and distributed by developers or a
+                    team or an organization. 12 Factor App said <b>“A twelve-factor app never relies on the implicit
+                        existence of system-wide packages”</b>, it means all dependencies declared specific versions
+                    which
+                    application work in external files call manifest and use dependencies isolation tools for execution.
+                    dependencies isolation tool is a tool bundler that bundles dependencies with an application.</p>
+
+                <p> Advantages of explicit dependency declaration is helping in reusable and maintainable code base for
+                    multiplapp. New developers will be able to quickly set up everything that prerequisites for
+                    applications need.</p>
+
+                <p>
+                    The twelve Factor app has decouple two dependencies explicitly, it help our application do not reply
+                    on implicit existence system package and system tool:
+                    <div> - Versioning: by explicitly declare version dependencies</div>
+                    <div> - Isolation: bundling with application during execution</div>
+                </p>
+                <p>Example spring boot, we explicitly declare dependencies in a <span
+                        class="inline-code"><code>pom.xml</code></span>
+                    file of manifest format:</p>
+
+                <p>
+                    <code class="font-mono">
+                        <pre class="code">
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-data-rest&lt;/artifactId&gt;
+    &lt;/dependency&gt;</pre>
+                    </code>
+                </p>
+                <p>
+                    The <span class="inline-code"><code>spring-boot-starter-data-rest</code></span> is declared for
+                    spring boot starter projects with restful data. It
+                    will be built by a maven tool that shares class paths across an application.
+                </p>
+
+
+                <h2>3 - Config</h2>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Store config in the environment.
+                        </span>
+                    </p>
+                </blockquote>
+                <p>
+                    App config is everything as constants that running applications need on any specific environment
+                    stages including database, memcached properties, third party credentials like amazon S3, firebase,
+                    onesignal,..etc.
+                </p>
+
+                <p>
+                    In bad practice or traditional applications, developers stored all app config variables in their
+                    code. When they want to change those config, it’s hard to maintain, changing the environment and it
+                    also compromises any credentials of external applications. Those are the mistakes and violence the
+                    twelve-factor apps in the modern cloud for implementing the SaSS application model. So how do we
+                    store config? In the config file? Yes, It’s possible but still a weakness because those config files
+                    will check in to the repo.
+                </p>
+
+                <p>
+                    The methodology of the twelve-factor app requires strict separation of config from code, and stores
+                    config in environment variables. Environment variable (env) is convenient to change and deploy to
+                    different stages without breaking the code.
+                </p>
+
+                <p>
+                    The spring boot application used java system properties mechanism and offered to code in runtime by
+                    configuration properties.
+                </p>
+
+                <div>
+                    <code class="block">
+                        application.properties
+                    </code>
+                    <pre class="code px-3"><code>service.mail.enable=true</code></pre>
+                    <div class="mb-3"></div>
+                    <pre class="code px-3"><code>
+    @ConfugurationProperties(prefix = “service.mail”)
+    class MailConfigProperty {
+        private Boolean enabled = Boolean.TRUE;
+    }</code></pre>
+                </div>
+
                 <h2>4 - Backing Services </h2>
-                <p>Applications usually rely on external service in order to perform their actions. Examples of backing
-                    services are databases, caches or queues. <br><br>12-Factor apps tread all service as attached
-                    resources and do not make a distinction between local and third party services. For an application,
-                    all attached resources are going to be accessed via the details stored in the config.
-                    <br><br>Because backing services vary between deployments, there shouldn’t be hardcoded settings of
-                    external services on the application’s code.</p>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Treat backing services as attached resources.
+                        </span>
+                    </p>
+                </blockquote>
+
+                <p>
+                    Backing service is any service that supports network operation for applications such as database,
+                    messaging event, Asset service, Mail service, caching system, metrics-gathering service, …etc . Most
+                    modern applications depend on backing services to operate their business.
+                </p>
+
+                <p>
+                    In twelve-factor app methodology, <b>The code for a twelve factor app makes no distinction between
+                        local and third party services</b>. It means both local and third party services will be
+                    attached as
+                    resources, and accessible via a URL. Service locator or credentials need to be stored in config to
+                    comply with the config rule of twelve-factor app. Each backing service is a resource that can be
+                    attached to and detached from deploy, Codebase is flexible to change local backing service to a
+                    third party backing service without code changes. Example, we use local mysql in our development on
+                    a local machine. When deployed we might swap to Amazon RDS third party service.
+                </p>
+
+                <p>
+                    Backing service principle helps us loose coupling between app deployment and the resource. It will
+                    make our application scalable and disposable.
+
+                    Spring boot can be achieved by Spring data JPA over RDBMS data source that offers abstract
+                    implementation of data access layers by configuration properties (JDBC URL) to make database
+                    connection. With JPA, we can swap out databases by changing configuration.
+                </p>
+
+                <div>
+                    <div class="mb-2"><code>application.properties</code></div>
+                    <pre class="code">
+                        <code>
+    spring.jpa.hibernate.ddl-auto=update
+    spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/db_example
+    spring.datasource.username=springuser
+    spring.datasource.password=ThePassword
+    spring.datasource.driver-class-name =com.mysql.jdbc.Driver
+    #spring.jpa.show-sql: true</code>
+                    </pre>
+                </div>
+
+
                 <h2>5 - Build, release and run</h2>
-                <p>There are usually three stages to convert a codebase intro a releasable build:</p>
-                <ol>
-                    <li>Build stage is the process of compiling the source code into an executable bundle or build
-                        files. In this process third party libraries, assets and vendor dependencies are compiled
-                        together.</li>
-                    <li>Release stage, where the bundle and the config files are combined resulting in a release which
-                        is ready for runtime execution.</li>
-                    <li>Run stage is the execution environment where the application is going to run.</li>
-                </ol>
-                <p>12-Factor applications are based on a strict separation between stages, preventing any kind of
-                    changes into a released bundle. This approach enforces that new changes after the compilation
-                    require a new release. </p>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Strictly separate build and run stages.
+                        </span>
+                    </p>
+                </blockquote>
+                <p>
+                    <b>“The twelve-factor app uses strict separation between the build, release, and run stages”</b>.
+                    Single
+                    codebase is separated three stages for deploy workflow :
+                    <div>
+                        - <strong>Build stage</strong> : compile source code into executable bundle.
+                    </div>
+                    <div>
+                        - <strong>Release stage</strong> : tag unique release id and combine with deployment config for
+                        execution
+                        environment.
+                    </div>
+                    <div>- <strong>Run stage</strong>: running instance of app</div>
+
+                </p>
+
+                <p>
+                    In the practice, we use any deployment tools for release management. eg, docker, capistrano, ..etc.
+                    Those tools offer the ability to roll back previous releases. Example docker:
+                    <div>- build stage: compile source code and build docker image</div>
+                    <div> - release stage : annotate release version and publish docker image to docker registry.</div>
+                    <div>
+                        - run stage : ship docker image registry to the execution environment and run the app image.
+                    </div>
+
+                </p>
+
                 <h2>6 - Processes</h2>
-                <p>Apps are treated as independent running processes. The crash of an application should not take down
-                    other services. <br><br>All data used by the application must be stored on backing services such as
-                    databases. Each process on a 12-factor app is stateless and shares nothing. While many developers
-                    are used to 'sticky sessions', storing information in the session expecting the next request will be
-                    from the same service contradicts this methodology.</p>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Execute the app as one or more stateless process.
+                        </span>
+                    </p>
+                </blockquote>
+
+                <p>
+                    The app is executed in the deployment environment as one or more processes. <b>“Twelve-factor
+                        processes are stateless and share-nothing”</b>. It means we must not store data as stateless. If
+                    the process needs the data to serve the next request we must persist data outside the application in
+                    a stateful backing service, stored in a database. Why do twelve-factor apps define that ? when
+                    running only one process, our application might be restarted for up deployment, changing
+                    configuration, it will destroy all local state.
+                </p>
+                <p>
+                    Some traditional web applications rely on sticky sessions that persist user data in memory to serve
+                    future requests. With this scenario, it is violence of twelve-factor. Absolutely, session state
+                    should be stored in a datastore with time expiration such as hazelcast or redis.
+                </p>
+                <p>
+                    Spring boot applications execute java processes on JVM or inside containers like docker. Any data
+                    that the application needs, should be stored in the database.
+                </p>
+
                 <h2>7 - Port Binding</h2>
-                <p>Unlike some web apps that are executed inside a webserver container, a Twelve-Factor acts as a
-                    standalone service. It must be a self-contained application which means it doesn’t rely on any
-                    existing/running application server to get executed.<br><br>In a traditional setup, applications
-                    assume web protocols such as HTTP, are always available on the environment they are deployed to.
-                    <br><br>In 12-factor methodology, applications are completely self-contained. They are required to
-                    add a web server library or similar to the core app in order to listed for requests on a defined
-                    port, whether requests are stablished via HTTP or a different protocol.</p>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Export service vai port binding.
+                        </span>
+                    </p>
+                </blockquote>
+
+                <p>
+                    The twelve-factor app is completely self-contained. It means the application should be binding
+                    itself to a particular port and listening to all the requests from the incoming client on that port
+                    in the execution environment. If you setup a web application from scratch you can use dependency
+                    declaration to add a web server library to the app. In some cases, you build your web application
+                    using any framework such as laravel, expressjs, or spring, it comes along with a self-contained web
+                    server. The port binding methodology makes your application as the backing service for other apps to
+                    consume also. It provides the URL and as attached the resource in config.
+                </p>
+
+                <p>
+                    Application using spring boot embedded apache tomcat and export HTTP as a service by binding to a
+                    port. We can configure the port in the config variable (.properties, yalm) <code
+                        class="inline-code">server.port</code> configuration
+                    property. By default spring boot serves on port 8080.
+                </p>
+
                 <h2>8 - Concurrency</h2>
-                <p>Can be seen as a way towards the micro services architecture. The idea is to be able to scale up and
-                    out, meaning that the application should be able to rely on workers and delegate certain
-                    functionality to other apps.<br><br>For example, HTTP requests may be handled by a web process and
-                    long-running background tasks handled by a worker process. <br><br>The concept behind concurrency is
-                    to optimise CPU resources by running multiple processes on parallel threads. The 12-Factor
-                    methodology do not exclude multiplexing on individual processed (scale up) but dictates that
-                    applications must be able to span multiple processes running on multiple physical machines (scale
-                    out).</p>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Scale out vai the process model.
+                        </span>
+                    </p>
+                </blockquote>
+                <p>One application can be running as one or more processes. <b>The twelve-factor app processes should be
+                        scale out as horizontal scaling by process model</b>. Process model is a modern approach that
+                    uses the unix process model for running web app service daeon. It gives us a unique way to manage
+                    our workload and scale up overtime. In monolithic applications, it is running in a larger single
+                    process that makes vertical scaling (increase CPU or RAM capacity). Best practice of the
+                    methodology, If we have many processes, we should handle those processes as workloads and assign a
+                    process type. For example , an application has a model assigned two process types, one process is a
+                    web process that handles HTTP requests. The second, worker process is a long-running background task
+                    for the job handler. Both processes are running service daemon workloads. Each of the processes
+                    should be shared-nothing that makes our app easily scale faster.
+                </p>
+                <p>
+                    Spring boot applications do not help much with this factor. Our application should be stateless and
+                    managed stateful by an outside application. If we want to scale a specific process, we will split
+                    our application into smaller. Microservice architecture is independent service, focus and small
+                    service, including scale out processes of the nature of twelve-factor apps.
+                </p>
+
                 <h2>9 - Disposability</h2>
-                <p>Applications that are disposable mean they can be started or stopped rapidly. An application cannot
-                    scale or recover rapidly if it cannot start rapidly and shut down gracefully.<br><br>12 factor apps
-                    should be quick to start up. Ideally they should start in less than 1 minute.<br><br>Application are
-                    graceful to shut down when they receive a terminal signal and within 10 seconds are able to release
-                    resources and clean up any connections.<br><br>When both of this principles apply to an app, we can
-                    consider this application to be resilience to failure.</p>
-                <h2>10 - Environment parity</h2>
-                <p>This principle states that environments where the app is deployed need to be identical or with only
-                    minor difference between them.<br><br>The most common place when this principle gets violated is at
-                    the database or container layer. If production environment is, for example, using PostgreSQL the
-                    development environment needs to also use that same manager.<br><br>Twelve-factor applications are
-                    designed for Continuous Deployment reducing the gap between environments where the application is
-                    deployed to. This principle allows to reduce time solving cross-environment issues and ensuring the
-                    app’s behaviour is the same on each deployment. <br><br>When the parity principle is used correctly,
-                    it can lead to other beneficial principles like reproducibility (scale up) or disposability (can
-                    easily be recreated). </p>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Maximize robustness with fast startup and graceful
+                            shutdown.
+                        </span>
+                    </p>
+                </blockquote>
+
+                <p>
+                    Disposability factor means that <b>an application is able to start and stop rapidly without
+                        interrupting any processes</b>. A few second startup service offers a release stage of
+                    deployment easily and quickly. Processes should be shut down gracefully to allow current requests to
+                    finish and exit. In case of hard shutdown, worker processes by returning the current job to the work
+                    queue.
+                </p>
+                <p>
+                    Spring boot applications should be run inside containers that can start and stop at a minimum at a
+                    moment's time. Docker image should be optimized with the lazy initialization of dependencies to be a
+                    disposable process.
+                </p>
+
+                <h2>10 - Dev/prod parity</h2>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Keep development, staging, and production as similar as
+                            possible.
+                        </span>
+                    </p>
+                </blockquote>
+                <p>Traditionally, development software applications slow down because of the divergence between dev and
+                    prod infrastructure or environment.</p>
+                <p><b>The twelve-factor app is designed for continuous deployment by keeping the gap between development
+                        and production small and similar</b>. It helps developers continue to write code and continue to
+                    deploy in hours or minutes. Besides, in the same environment, backing service is encouraged to be
+                    compatible between local and production. Differences between backing services mean that they violate
+                    the twelve-factor app because codebase will work on test or staging and fail in production.</p>
+                <p>The container is possible to build and ship codebase packages to run everywhere and portable OS.
+                    Spring boot applications are packaged in docker image and pushed to docker registry. Docker includes
+                    provisioning tools of alternatives to packaging systems such as homebrew or apt-get.
+                </p>
+
                 <h2>11 - Logs</h2>
-                <p>The behaviour of a running application can be reviewed thanks to its logs. Logs, which are usually
-                    stored as system files, record events that occurred while an application is running.<br><br>In
-                    12-Factor methodology, applications do not handle the routing or storage of its output log streams.
-                    Instead, they write their streams into the standard output <code>stdout</code> that is the default
-                    file descriptor where a process can write output.</p>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Treat logs as event streams.
+                        </span>
+                    </p>
+                </blockquote>
+                <p>Log is a file that records data of all input, data output, processes or results in a program. <b>A
+                        twelve-factor app never concerns itself with routing or storage of its output stream</b>. All
+                    the logs shouldn't be written and stored into a log file in application. Any running process is
+                    written as an event stream into the standard output stdout.</p>
+                <p>Spring boot application, log only the console by default. It doesn't store log records in tmp files
+                    on disk. Best practice console logs, we use SLF4J acts as a facade for different logging frameworks.
+                    In a cloud environment, we can integrate any logs aggregator and management tool to analyze or
+                    monitor application health such as new relics, papertrail, sentry, datadog.
+                </p>
+
                 <h2>12 - Admin processes</h2>
-                <p>Administrative or maintenance tasks such as background one-off jobs or database migrations should be
-                    run as isolated processes.<br><br>Essentially we should not log into a production server which is
-                    handling requests and try to run a one-off job directly. The outcome of doing this may vary from
-                    using production resources from the main app to even crashing the production system.<br><br>The
-                    12-Factor methodology states that these types of jobs need to be run as an isolated process which
-                    can be run in the same environment as the production application without affecting the main
-                    application.</p>
+                <blockquote class="blockquote bg-gray-50 text-gray-400 py-3 mb-6 rounded-sm">
+                    <p class="mb-0">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mb-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold">Run admin/management tasks as one-off processes.
+                        </span>
+                    </p>
+                </blockquote>
+                <p>Most applications have one-off administrative or maintenance tasks such as database migration, script
+                    fix bad record, console inspect application running. Those tasks should be run in isolated
+                    processes. <b>One-off admin code must be shipped with application code to be portable in the
+                        execution environment</b>. Twelve-factor app empsized run one-off script with REPL shell out of
+                    the box. In local, we run shell commands inside the application. In a production environment, we can
+                    remote command execution to run such a process. </p>
+                <p>For spring boot applications, we add one-off admin functions and expose endpoints for invocation.</p>
+
+                <h2>Summary</h2>
+                <p>The twelve-factor app methodology is successful for developers building web applications and ops
+                    engineers who deploy or manage running applications. The principle can be applied to apps, not
+                    specific programming languages and ideally attach the backing service. Each of factors strongly
+                    define following:
+                </p>
+                <p>
+                    <ol>
+                        <li><b>Codebase</b> : one single code base target deploy many environments.</li>
+                        <li><b>Dependency</b> : All dependencies should be declared explicitly in manifest</li>
+                        <li><b>Config</b> : store all configuration properties in environment variables</li>
+                        <li><b>Backing Service</b> : Treat backing service as attached resource, flexible swap out by
+                            execution
+                            environment.</li>
+                        <li><b>Build, Release, Run</b> : Delivery pipeline, build, package and run.</li>
+                        <li><b>Processes</b> : run applications as stateless processes and store application data in
+                            backing
+                            service.</li>
+                        <li><b>Port binding</b> : Self-contained and made available to other services by binding itself
+                            with
+                            specified port.</li>
+                        <li><b>Concurrency</b> : scale out process as horizontal scaling by process model.</li>
+                        <li><b>Disposability</b> : Fast startup and graceful shutdown service.</li>
+                        <li><b>Dev/prod parity</b> : All environments should be as similar as possible.</li>
+                        <li><b>Logs</b> : Produce logs as event stream rather than store in file inside application.
+                        </li>
+                        <li><b>Admin Process</b> : Admin tasks must ship with application code. </li>
+                    </ol>
+                </p>
                 <h2>References</h2>
                 <ul class="text-blue-400">
                     <li><a target="_blank" href="https://12factor.net">https://12factor.net</a></li>

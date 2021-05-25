@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 /*! tailwindcss v2.1.2 | MIT License | https://tailwindcss.com */
 
 /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
@@ -11241,6 +11243,10 @@ video {
 
 .font-body{
   font-family: Nunito;
+}
+
+.font-body2{
+  font-family: IBM Plex Sans,  sans-serif;
 }
 
 .font-thin{
@@ -31889,6 +31895,26 @@ video {
   font-family: Nunito;
 }
 
+.code {
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+  border-radius: 0.375rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.inline-code {
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+  border-radius: 0.375rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .avatar {
   background-position: center;
   --tw-border-opacity: 1;
@@ -42647,6 +42673,10 @@ video {
 
   .sm\:font-body{
     font-family: Nunito;
+  }
+
+  .sm\:font-body2{
+    font-family: IBM Plex Sans,  sans-serif;
   }
 
   .sm\:font-thin{
@@ -73810,6 +73840,10 @@ video {
     font-family: Nunito;
   }
 
+  .md\:font-body2{
+    font-family: IBM Plex Sans,  sans-serif;
+  }
+
   .md\:font-thin{
     font-weight: 100;
   }
@@ -104969,6 +105003,10 @@ video {
 
   .lg\:font-body{
     font-family: Nunito;
+  }
+
+  .lg\:font-body2{
+    font-family: IBM Plex Sans,  sans-serif;
   }
 
   .lg\:font-thin{
@@ -136132,6 +136170,10 @@ video {
     font-family: Nunito;
   }
 
+  .xl\:font-body2{
+    font-family: IBM Plex Sans,  sans-serif;
+  }
+
   .xl\:font-thin{
     font-weight: 100;
   }
@@ -167291,6 +167333,10 @@ video {
 
   .\32xl\:font-body{
     font-family: Nunito;
+  }
+
+  .\32xl\:font-body2{
+    font-family: IBM Plex Sans,  sans-serif;
   }
 
   .\32xl\:font-thin{
