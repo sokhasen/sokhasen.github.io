@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Spring Boot - mvnw or mvnw.cmd. What the Hell Is That?</title>
+    <meta data-n-head="ssr" charset="utf-8" />
+    <meta data-n-head="ssr" name="viewport" content="width=device-width, initial-scale=1" />
+    <meta data-n-head="ssr" http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta data-n-head="ssr" data-hid="description" name="description" content="Spring Boot is an extension of the spring framework (frameworkless framework) that created focus on small, light-weight, stand-alone application and productivity." />
+    <meta data-n-head="ssr" data-hid="keywords" name="keywords" content="Spring, Spring Boot, Microservice" />
+    <meta data-n-head="ssr" property="og:url" content="https://sokhasen.github.io/" />
+    <meta data-n-head="ssr" property="og:type" content="website" />
+    <meta data-n-head="ssr" property="og:title" content="Spring Boot - mvnw or mvnw.cmd. What the Hell Is That?" />
+    <meta data-n-head="ssr" property="og:description" content="Spring Boot is an extension of the spring framework (frameworkless framework) that created focus on small, light-weight, stand-alone application and productivity." />
+    <meta data-n-head="ssr" property="og:image" content="https://sokhasen.github.io/assets/images/spring-boot-maven.jpg" />
+    <meta data-n-head="ssr" name="twitter:card" content="summary_large_image" />
+    <meta data-n-head="ssr" name="twitter:site" content="@sokhasen" />
+    <meta data-n-head="ssr" name="twitter:title" content="Spring Boot - mvnw or mvnw.cmd. What the Hell Is That?" />
+    <meta data-n-head="ssr" name="twitter:creator" content="@sokhasen" />
+    <meta data-n-head="ssr" name="twitter:image" content="https://sokhasen.github.io/assets/images/spring-boot-maven.jpg" />
+    <meta data-n-head="ssr" name="twitter:image:alt" content="Spring Boot is an extension of the spring framework (frameworkless framework) that created focus on small, light-weight, stand-alone application and productivity." />
+    <link data-n-head="ssr" rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/26691076?v=4" />
+    <link data-n-head="ssr" rel="icon" href="https://avatars.githubusercontent.com/u/26691076?v=4" />  
+    <link rel="stylesheet" href="../../assets/style.css">
+    <style>
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body class="font-body2 text-gray-700">
+    <div class="bg-white p-4 text-center border-b border-gray-100">
+        <a href="/" class="font-semibold py-4 px-8">HOME</a>
+        <a href="/blogs" class="font-semibold py-4 px-8">BLOG</a>
+    </div>
+    <div class="relative">
+        <img class="w-full h-40 md:h-80 object-cover"
+            src="../../assets/images/spring-boot-maven.jpg">
+    </div>
+    <div class="w-11/12 md:w-7/12 lg:w-7/12 mx-auto my-6 md:my-12">
+        <div class="relative">
+            <div class="flex items-center justify-between  flex-col md:flex-row">
+                <div class="flex items-center flex-col md:flex-row">
+                    <img class=" rounded-full w-14 h-14" src="https://avatars.githubusercontent.com/u/26691076?v=4"
+                        alt="https://avatars.githubusercontent.com/u/26691076?v=4"
+                        srcset="https://avatars.githubusercontent.com/u/26691076?v=4">
+                    <span class="font-bold text-md md:ml-5">Sokha Sen</span>
+                </div>
+                <div class="flex flex-col justify-between md:items-end mt-2">
+                    <div class="text-sm">Monday 07, June 2020</div>
+                    <div class="py-21></div>
+                    <div class=" text-sm">Spring Boot | Spring Codebase |
+                        Software Architecture |
+                        Spring Microservice</div>
+                </div>
+            </div>
+
+            <article class="mt-10 md:mt-20">
+                <div class="my-10">
+                    <h2>Spring Boot - mvnw or mvnw.cmd. What the Hell Is That?</h2>
+                </div>
+                <p class="mb-6">
+                    Spring Boot is an extension of the spring framework (frameworkless framework) that created focus on small, light-weight, stand-alone application and productivity. Spring boot has eliminated boilerplate code with auto-configuration and no requirement for XML configuration. You don't care about how to config any dependencies to your project, Spring boot will enable and manage it for you.
+                </p>
+
+                <p>Spring provided several ways to create starter project follow:</p>
+                
+                <p>
+                    <ul>
+                        <li>- From the web application at <a href="http://start.spring.io" target="_blank">http://start.spring.io</a></li>
+                        <li>- From the command line using the command curl</li>
+                        <li>- From the command line using the Spring Boot command-line interface</li>
+                        <li>- When creating a new project with Spring Tool Suite</li>
+                        <li>- When creating a new project with IntelliJ IDEA</li>
+                        <li>- When creating a new project with NetBeans</li>
+                    </ul>
+                </p>
+
+                <p class="mb-6">
+                    When you create a spring boot project for building your magical application, Spring generated one package for you. This project package is just a java project directory that comes along with a main java class entry point and other dev dependencies.
+                    Spring project structure following below figure:
+                   <p> <img src="../../assets/images/spring-boot-starter.png" alt="spring-boot-starter.png" /></p>
+                </p>
+
+                <p>In this article, I don't explain a whole of structure. I just talk about important build tools that spring concerns and are embedded in spring boot projects. I think some people ignored it. they try to install into their environment.
+                    If they have repeated installation, it is not a mistake. With spring, they opinionated a lot of build tools such as <b>Maven</b>, <b>Gradle</b>, <b>Groovy</b>,...etc. Because spring boot is stand-alone, so embedded everything that needs both development and deployment.
+                    et back and see in above picture, You will see <code class="inline-code">mvnw</code> and <code class="inline-code">mvnw.cmd</code>. (If you generate spring boot starter choosing gradle, you will see <code class="inline-code">gradlew</code> and <code class="inline-code">gradlew.bat</code>).
+                    what are these files? When we use it? 
+                </p>
+
+                <p>Even though your local machine doen't install maven or gradle tool, You can still run your spring boot project without obstacles. Spring does not only embed tomcat, it included a build tool also.
+                    These wrapper scripts can build your project in any environments (Linux, or Windows) both local and cloud server. You don't worry about running the environment, you just focus on your solution and codebase. 
+                </p>
+
+                <p>In order to execute this script to build your project, you will open terminal at root project and type the command start with <code class="inline-code">./mavenw package</code> for linux or <code class="inline-code">./mavenw.cmd package</code> for window.
+                
+                This wrapper script is useful because it keeps your machine as to be free and clean. That is spring done!!!
+                </p>
+ 
+
+                
+            </article>
+        </div>
+    </div>
+
+</body>
+
+</html>
